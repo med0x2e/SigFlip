@@ -66,6 +66,8 @@ Make sure all object files are located in the same directory as sigflip.cna, the
 
 ## Details:
 
+This is a known technique used by APT#10 in multiple campaigns or intrusion sets.
+
 ### Authenticode Digital Signatures ?
 
 Authenticode is a Microsoft code-signing technology that identifies the publisher of Authenticode-signed software. Authenticode also verifies that the software has not been tampered with since it was signed and published.
@@ -133,3 +135,4 @@ Windows loader doesn't load certificate data into the process address space, rea
 * https://msrc-blog.microsoft.com/2013/12/10/ms13-098-update-to-enhance-the-security-of-authenticode/
 * https://www.specterops.io/assets/resources/SpecterOps_Subverting_Trust_in_Windows.pdf
 * https://p0w3rsh3ll.wordpress.com/2014/05/24/testing-ms13-098-certificate-padding-check/
+* http://jsac.jpcert.or.jp/archive/2021/pdf/JSAC2021_202_niwa-yanagishita_en.pdf
