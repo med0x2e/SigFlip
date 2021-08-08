@@ -20,7 +20,18 @@ It can be used mainly for persistence, lateral movement or code/command executio
 * Improving OPSEC and challenging defenders relying solely on typical signature verification utilities such as signtool, sigcheck, Get-AuthenticodeSignature ..etc to validate the authenticoode signature of PE files.
 
 ### Usage & Examples:
-##### Cobalt Strike:
+
+#### Compile/Build:
+
+Precompiled BOF's are not provided in this project, can be compiled using Mingw-w64, for **.NET** use VS or csc.exe to compile .NET projects (SigFlip, SigLoader), for **BOF** check steps below;
+* `➜ i686-w64-mingw32-gcc -c sigflip.c -o sigflip.x86.o`
+* `➜ x86_64-w64-mingw32-gcc -c sigflip.c -o sigflip.x64.o`
+* `➜ x86_64-w64-mingw32-gcc -c SigLoader/sigloader.c -o sigloader.x64.o`
+* `➜ i686-w64-mingw32-gcc -c SigLoader/sigloader.c -o sigloader.x86.o`
+
+Make sure all object files are located in the same directory as sigflip.cna, then load sigflip.cna script to cobalt strike.
+	
+#### Cobalt Strike:
 1. **Execute-Assembly**
 	* `execute-assembly SigFlip.exe -h`
 	* `execute-assembly SigLoader -h`
