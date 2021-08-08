@@ -1,0 +1,47 @@
+#ifndef _COMMON_
+#define _COMMON_
+#pragma once
+#pragma comment(lib, "dbghelp.lib") 
+
+#include <windows.h>
+#include <stdio.h>
+#include <dbghelp.h>
+#include <time.h>
+#include <softpub.h>
+
+
+
+WINBASEAPI FARPROC WINAPI KERNEL32$GetProcAddress(HMODULE hModule, LPCSTR  lpProcName);
+WINBASEAPI HANDLE WINAPI KERNEL32$GetCurrentProcess();
+WINBASEAPI HMODULE WINAPI KERNEL32$GetModuleHandleA(LPCSTR lpModuleName);
+WINBASEAPI WINBOOL WINAPI KERNEL32$CloseHandle (HANDLE hObject);
+WINBASEAPI HANDLE WINAPI KERNEL32$CreateFileA (LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
+WINBASEAPI DWORD WINAPI KERNEL32$GetFileSize (HANDLE hFile, LPDWORD lpFileSizeHigh);
+WINBASEAPI WINBOOL WINAPI KERNEL32$ReadFile (HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
+WINBASEAPI FILE *__cdecl MSVCRT$fopen(const char *filename, const char *mode);
+WINBASEAPI int __cdecl MSVCRT$fclose(FILE *stream);
+WINBASEAPI size_t __cdecl MSVCRT$fwrite(const void *buffer,size_t size,size_t count,FILE *stream);
+WINBASEAPI char* __cdecl MSVCRT$strrchr( const char *str, int c);
+WINBASEAPI void *__cdecl MSVCRT$memcpy(void * __restrict__ _Dst,const void * __restrict__ _Src,size_t _MaxCount);
+WINBASEAPI void __cdecl MSVCRT$free(void *_Memory);
+WINBASEAPI void __cdecl MSVCRT$memset(void *dest, int c, size_t count);
+WINBASEAPI size_t __cdecl MSVCRT$strlen(const char *_Str);
+WINBASEAPI void *__cdecl MSVCRT$malloc(size_t size);
+WINBASEAPI time_t __cdecl MSVCRT$time( time_t *destTime );
+DECLSPEC_IMPORT PIMAGE_NT_HEADERS IMAGEAPI DBGHELP$ImageNtHeader(PVOID Base);
+DECLSPEC_IMPORT size_t __cdecl  MSVCRT$mbstowcs( wchar_t *wcstr, const char *mbstr, size_t count);
+
+DECLSPEC_IMPORT WINBASEAPI DWORD WINAPI KERNEL32$GetLastError (void);
+DECLSPEC_IMPORT WINBASEAPI DWORD WINAPI KERNEL32$ResumeThread (HANDLE);
+DECLSPEC_IMPORT WINBASEAPI HANDLE WINAPI KERNEL32$GetProcessHeap (VOID);
+DECLSPEC_IMPORT WINBASEAPI PVOID WINAPI KERNEL32$HeapAlloc (HANDLE, DWORD, DWORD);
+DECLSPEC_IMPORT WINBASEAPI HANDLE WINAPI KERNEL32$OpenProcess (DWORD, BOOL, DWORD);
+DECLSPEC_IMPORT WINBASEAPI DWORD WINAPI KERNEL32$WaitForSingleObject (HANDLE, DWORD);
+DECLSPEC_IMPORT WINBASEAPI DWORD WINAPI KERNEL32$QueueUserAPC (PAPCFUNC, HANDLE, ULONG_PTR);
+DECLSPEC_IMPORT WINBASEAPI PVOID WINAPI KERNEL32$VirtualAllocEx (HANDLE, PVOID, DWORD, DWORD, DWORD);
+DECLSPEC_IMPORT WINBASEAPI BOOL WINAPI KERNEL32$WriteProcessMemory (HANDLE, LPVOID, LPCVOID, SIZE_T, SIZE_T);
+DECLSPEC_IMPORT WINBASEAPI BOOL WINAPI KERNEL32$InitializeProcThreadAttributeList (LPPROC_THREAD_ATTRIBUTE_LIST, DWORD, DWORD, PSIZE_T);
+DECLSPEC_IMPORT WINBASEAPI BOOL WINAPI KERNEL32$UpdateProcThreadAttribute (LPPROC_THREAD_ATTRIBUTE_LIST, DWORD, DWORD_PTR, PVOID, SIZE_T, PVOID, PSIZE_T);
+DECLSPEC_IMPORT WINBASEAPI BOOL WINAPI KERNEL32$CreateProcessW (LPCWSTR, LPCWSTR, LPSECURITY_ATTRIBUTES, LPSECURITY_ATTRIBUTES, BOOL, DWORD, LPVOID, LPCWSTR, LPSTARTUPINFOW, LPPROCESS_INFORMATION );
+DECLSPEC_IMPORT WINBASEAPI BOOL WINAPI KERNEL32$VirtualProtectEx (HANDLE, PVOID, DWORD, DWORD, PDWORD);
+#endif

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigFlip", "SigFlip\SigFlip.csproj", "{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|x64.ActiveCfg = Debug|x64
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|x64.Build.0 = Debug|x64
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|x86.ActiveCfg = Debug|x86
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Debug|x86.Build.0 = Debug|x86
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|x64.ActiveCfg = Release|x64
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|x64.Build.0 = Release|x64
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|x86.ActiveCfg = Release|x86
+		{DDFDD691-DAA2-41FA-8E2C-F85C2A54614D}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DD3A6B4-4F96-4071-960F-ACD177E259C7}
+	EndGlobalSection
+EndGlobal
