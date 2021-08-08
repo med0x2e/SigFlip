@@ -14,6 +14,7 @@ It can be used mainly for persistence, lateral movement or code/command executio
 
 * Application whitelisting bypasses, changing the PE file hash (msbuild.exe for ex) without breaking the signature.
 * Bypassing EDRs relying on specific LOLBINs' hashes for malicious code/command execution detection.
+* Load signed drivers using a different hash, might help circumvent any EDRs watching for common vulnerable signed drivers using a pre-defined list of hashes.
 * Embed encrypted shellcode in a signed PE file and use a stager (sigloader) of your preference to parse, decrypt, load and execute it.
 * Endpoint security vendors tend to classify signed PE files as benign most of the time, embedding your unsigned code (shellcode ..etc.) in a signed PE file makes it a little bit hard to detect/flag.
 * Bypassing endpoint security vendors relying mainly on the default WinVerifyTrust for signature validation.
