@@ -8,6 +8,8 @@ SigLoader is a basic loader which takes a modified PE file path created by SigIn
 
 SigFlip will check if PE hash was successfully changed and also check and exit gracefully in case endpoints are hardened against such common misconfiguration. (check "Details" section).
 
+**Quick Note:** SigFlip, SigInject and SigLoader are available as BOF scripts and .NET assemblies, the only difference is that SigInject functionality is implemented as part of SigFlip (-i) in case if you choose to use .NET artifacts instead of BOFs.
+
 ### Why ?
 
 It can be used mainly for persistence, lateral movement or code/command execution and can help with:
