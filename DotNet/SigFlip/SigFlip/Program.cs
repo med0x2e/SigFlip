@@ -93,7 +93,7 @@ namespace SigFlip
             Console.WriteLine("[+]:" + (_mode == MODE.BIT_FLIP ? "Bit Flipping" : "Encrypting data/shellcode '"+_dataPath+"' using '"+_encKey+"' and injecting it to") + " PE File '{0}'", _pePath);
             //Data to inject, could be shellcode or random bytes (-b -i switches).
             byte[] _data = _mode == MODE.BIT_FLIP ? Encoding.ASCII.GetBytes(Utils.GenRandomBytes(RANDOM_BYTES_SIZE)) : Utils.Encrypt(Utils.Read(_dataPath),_encKey);
-            Utils.WriteFile(@"C:\users\med2\desktop\Testing\.NET\encrypted-shellcode.bin", _data);
+            Utils.WriteFile(@"C:\users\public\encrypted-shellcode.bin", _data);
             //Local variables
             ushort _FEHeaderCharacteristics = _pe.fileHeader.Characteristics;
             IMAGE_DATA_DIRECTORY _CertificateTable;
