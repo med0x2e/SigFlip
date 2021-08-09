@@ -33,6 +33,8 @@ Precompiled BOF's are not provided in this project, can be compiled using Mingw-
 * `➜ i686-w64-mingw32-gcc -c SigLoader/sigloader.c -o sigloader.x86.o`
 
 Make sure all object files are located in the same directory as sigflip.cna, then load sigflip.cna script to cobalt strike.
+
+If you're using Mingw-64 >= 9.0.0, you may want to check https://github.com/med0x2e/SigFlip/issues/2#issuecomment-895521580 to get BOFs built with no errors.
 	
 #### Cobalt Strike:
 1. **Execute-Assembly**
