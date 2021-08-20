@@ -22,7 +22,7 @@ void go(char* args, int length) {
 	BOOL BIT_FLIP = opt == 0 ? FALSE : TRUE;
 
 	_fPath = BeaconDataExtract(&parser, NULL);
-    _oPath = BeaconDataExtract(&parser, NULL);
+    	_oPath = BeaconDataExtract(&parser, NULL);
 
 
 	if(!BIT_FLIP){

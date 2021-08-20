@@ -27,6 +27,7 @@ It can be used mainly for persistence, lateral movement or code/command executio
 #### Compile/Build:
 
 Precompiled BOF's are not provided in this project, can be compiled using Mingw-w64, for **.NET** use VS or csc.exe to compile .NET projects (SigFlip, SigLoader), for **BOF** check steps below;
+
 * `➜ i686-w64-mingw32-gcc -c sigflip.c -o sigflip.x86.o`
 * `➜ x86_64-w64-mingw32-gcc -c sigflip.c -o sigflip.x64.o`
 * `➜ x86_64-w64-mingw32-gcc -c SigLoader/sigloader.c -o sigloader.x64.o`
@@ -34,7 +35,7 @@ Precompiled BOF's are not provided in this project, can be compiled using Mingw-
 
 Make sure all object files are located in the same directory as sigflip.cna, then load sigflip.cna script to cobalt strike.
 
-If you're using Mingw-64 >= 9.0.0, you may want to check https://github.com/med0x2e/SigFlip/issues/2#issuecomment-895521580 to get BOFs built with no errors.
+**Quick Note:** pre-compiled BOFs were tested and compatible with mingw-64 v8.0.0_3, **using mingw-64 >= v9 might work but might crash active beacons**, check https://github.com/med0x2e/SigFlip/issues/2 for more details.
 	
 #### Cobalt Strike:
 1. **Execute-Assembly**

