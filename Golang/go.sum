@@ -1,0 +1,9 @@
+github.com/Binject/debug v0.0.0-20200830173345-f54480b6530f h1:aANCCkNbGzwXFh7dubh5FgvlZXuyRnZHcHZXmkRLV/A=
+github.com/Binject/debug v0.0.0-20200830173345-f54480b6530f/go.mod h1:QzgxDLY/qdKlvnbnb65eqTedhvQPbaSP2NqIbcuKvsQ=
+github.com/C-Sto/BananaPhone v0.0.0-20201003062936-916e63b713df h1:0xMqCgH48h3CeCyMjLfW7B9/4qifjqmGNGn2B0UM244=
+github.com/C-Sto/BananaPhone v0.0.0-20201003062936-916e63b713df/go.mod h1:QsEPWHZooj8uXL2YEdpQX+hDr00Plw7myenTiduBHRA=
+github.com/awgh/rawreader v0.0.0-20200626064944-56820a9c6da4 h1:cIAK2NNf2yafdgpFRNJrgZMwvy61BEVpGoHc2n4/yWs=
+github.com/awgh/rawreader v0.0.0-20200626064944-56820a9c6da4/go.mod h1:SalMPBCab3yuID8nIhLfzwoBV+lBRyaC7NhuN8qL8xE=
+golang.org/x/sys v0.0.0-20200828194041-157a740278f4/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e h1:WUoyKPm6nCo1BnNUvPGnFG3T5DUVem42yDJZZ4CNxMA=
+golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
