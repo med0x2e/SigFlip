@@ -93,6 +93,48 @@ char* genRandomBytes(size_t length) {
 		return rStr;
 }
 
+// Added
+char* getCustomScript(char* _cPath) {
+	char* rStr = NULL;
+	size_t _sizeCustomScript = 0;
+	size_t length = 0;
+	size_t sz_rpadding;
+
+	// Read file
+	FILE* pFile = fopen(_cPath, "rb");
+	int s_result = fseek(pFile, 0, SEEK_END);
+	if (s_result != 0) {
+		exit(EXIT_FAILURE);
+	}
+
+	// get size of file
+	_sizeCustomScript = ftell(pFile);
+
+	// Length always a multiple of 8
+	length = (_sizeCustomScript - (_sizeCustomScript % 8)) + 8;
+
+	// allocate memory
+	rStr = (char*)malloc(sizeof(char) * (length + 1));
+
+	// Read from start
+	fseek(pFile, 0, SEEK_SET);
+
+	for (int i = 0; i < length; i++) {
+		if (i < _sizeCustomScript) {
+			rStr[i] = fgetc(pFile);
+		}
+		else {
+			rStr[i] = 0x20;
+		}
+	}
+
+	rStr[length] = '\0';
+
+	fclose(pFile);
+
+	return rStr;
+}
+// --------------
 
 void *memcopy(void *const dest, void const *const src, size_t bytes){
 	while (bytes-- > (size_t)0)
