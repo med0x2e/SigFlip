@@ -8,6 +8,7 @@
 
 
 enum MODE {
+	CUSTOM_SCRIPT, // Added
 	BIT_FLIP,
 	INJECT,
 	HELP

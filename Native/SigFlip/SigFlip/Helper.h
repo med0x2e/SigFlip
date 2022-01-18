@@ -14,6 +14,7 @@
 
 extern unsigned int PEChecksum(void *FileBase, unsigned int FileSize);
 extern char* genRandomBytes(size_t length);
+extern char* getCustomScript(char* _cPath); // added
 extern char* genKey();
 extern void *memcopy(void *const dest, void const *const src, size_t bytes);
 extern void crypt(unsigned char* data, long dataLen, char* key, long keyLen, unsigned char* result);
